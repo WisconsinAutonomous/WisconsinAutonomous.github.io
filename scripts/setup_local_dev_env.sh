@@ -2,10 +2,14 @@
 
 # Sets up a local development environment using conda
 
-if [ ! command -v conda ] && echo "Please install anaconda and rerun this script." && exit
+if ! command -v conda &> /dev/null
+then
+	echo "Please install anaconda and rerun this script"
+	exit
+fi
 
 # Clone the repo
-git clone https://github.com/WisconsinAutonomous/WisconsinAutonomous.github.io.git
+git clone -b develop https://github.com/WisconsinAutonomous/WisconsinAutonomous.github.io.git
 cd WisconsinAutonomous.github.io
 
 # Create the conda environment
