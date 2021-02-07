@@ -96,6 +96,10 @@ elif [ -n "$UPDATE_CONDA_ENV" ]; then
 fi
 rm -f $tmpfile
 
+# Activate the environment
+. "$(conda info | grep -i 'base environment' | sed 's/.*://' | sed 's/(writable)//' | xargs)/etc/profile.d/conda.sh"
+conda activate wa
+
 # Patch gem/ruby/bundle
 cd $(gem environment gemdir)
 cd ../../$(basename $PWD)/$(gem environment platform | sed -e 's/.*://')
