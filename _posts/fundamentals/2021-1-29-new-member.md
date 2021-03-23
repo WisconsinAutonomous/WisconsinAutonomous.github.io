@@ -21,3 +21,7 @@ Separate post: [link](/posts/ms-team).
 _GitHub access is only necessary software focused members or leaders._
 
 Separate post: [link](/posts/github-org).
+
+### Step 4 - Join the Google Drive
+
+Simply send a team leader your email and they will add you as a content manager. Make sure to use your wisc.edu email!
