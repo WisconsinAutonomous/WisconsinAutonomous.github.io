@@ -1,7 +1,7 @@
 ---
 title: New Member Guide
 author: Aaron Young
-date: 2021-12-15 14:39:00 -0600
+date: 2021-12-15 09:01:00 -0600
 categories: [Fundamentals, Setup]
 tags: [tutorials, setup, non-technical]
 ---
