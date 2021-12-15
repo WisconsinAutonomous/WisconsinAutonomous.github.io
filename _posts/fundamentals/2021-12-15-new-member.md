@@ -20,15 +20,15 @@ Autonomous vehicles are an increasingly popular topic in modern technology. Basi
 
 ##### FSG
 
-Our team was founded in 2018 as an extension of [Wisconsin Racing](wisconsinracing.org) to compete in [Formula Student Germany Driverless](https://spectrum.ieee.org/students-race-driverless-cars-in-germany-in-formula-student-competition), which is an autonomous racing competition for minature formula-style vehicles. Because of the difficulty in scale of this competition and it taking place in Germany, we transitioned away after about one year.
+Our team was founded in 2018 as an extension of [Wisconsin Racing](https://wisconsinracing.org) to compete in [Formula Student Germany Driverless](https://spectrum.ieee.org/students-race-driverless-cars-in-germany-in-formula-student-competition), which is an autonomous racing competition for minature formula-style vehicles. Because of the difficulty in scale of this competition and it taking place in Germany, we transitioned away after about one year.
 
 ##### Indy Autonomous Challenge
 
-In Fall 2019, we applied for acceptance in the [Indy Autonomous Challange](indyautonomouschallenge.com). This is autonomous racing competition for IndyLights vehicles, which are only a little smaller than F1 cars and can drive at speeds up to 180mph. An international competition, we were competing with the best-of-the-best in terms of Universities developing autonomous vehicle technology. After about 6 months in the competition and solid performances in multiple events, we couldn't put up the giant price tag necessary to purchase the vehicle (on the scale of $300,000). Therefore, similarly to the FSG Driverless competition, we decided to not move forward with this competition.
+In Fall 2019, we applied for acceptance in the [Indy Autonomous Challange](https://indyautonomouschallenge.com). This is autonomous racing competition for IndyLights vehicles, which are only a little smaller than F1 cars and can drive at speeds up to 180mph. An international competition, we were competing with the best-of-the-best in terms of Universities developing autonomous vehicle technology. After about 6 months in the competition and solid performances in multiple events, we couldn't put up the giant price tag necessary to purchase the vehicle (on the scale of $300,000). Therefore, similarly to the FSG Driverless competition, we decided to not move forward with this competition.
 
 ##### evGrand Prix
 
-In Spring 2020, after realizing autonomous vehicle development is as hard as it is and hardware development should not be a major focus of our team, we decided to join the [evGrand Prix](evgrandprix.org/autonomous). This is a student competition where teams purchase a kit go-kart, which they must effectively convert from being human driven to being autonomous. Teams then compete to produce the fastest driving car on a given racetrack. We are currently competing in this event still, and the next competition date is May 19th and 20th, in Indiana.
+In Spring 2020, after realizing autonomous vehicle development is as hard as it is and hardware development should not be a major focus of our team, we decided to join the [evGrand Prix](https://evgrandprix.org/autonomous). This is a student competition where teams purchase a kit go-kart, which they must effectively convert from being human driven to being autonomous. Teams then compete to produce the fastest driving car on a given racetrack. We are currently competing in this event still, and the next competition date is May 19th and 20th, in Indiana.
 
 ##### AutoDrive Challenge II
 
@@ -58,7 +58,7 @@ Driving functions is the final stage of our control stack/logic. Using the perce
 
 ##### Software Platforms
 
-Software platforms is the self described _IT_ group for Wisconsin Autonomous. We have many computers, sensors, and hardware that needs maintenance. Software platforms handles this, but developing software oriented solutions to ensure our vehicle runs reliably. Further, we have a simulation platform called [wa\_simulator](wa.wisc.edu/wa_simulator) that software platforms is tasked with maintaining.
+Software platforms is the self described _IT_ group for Wisconsin Autonomous. We have many computers, sensors, and hardware that needs maintenance. Software platforms handles this, but developing software oriented solutions to ensure our vehicle runs reliably. Further, we have a simulation platform called [wa\_simulator](https://wa.wisc.edu/wa_simulator) that software platforms is tasked with maintaining.
 
 #### Hardware
 

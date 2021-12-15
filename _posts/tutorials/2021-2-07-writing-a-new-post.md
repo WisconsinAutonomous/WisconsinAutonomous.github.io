@@ -49,7 +49,7 @@ conda activate wa-web
 ```
 > Note: Change wa-web to whatever name you'd like
 
-Next, we need to apply a patch/fix to the anaconda environment to be able to use it for development. Copy and paste the following commands into _the same where you have activated the environment_. **This will take a minute or two**.
+Next, we need to apply a patch/fix to the anaconda environment to be able to use it for development. Copy and paste the following commands into _the same directory where you have activated the environment_. **This will take a minute or two**.
 ```shell
 SAVED_DIR=$PWD; cd $(gem environment gemdir); cd ../../$(basename $PWD)/$(gem environment platform | sed -e 's/.*://'); mv rbconfig.rb rbconfig.rb.bu; perl -pe 's/\/\S*?\/_build_env\/bin\///g' rbconfig.rb.bu > rbconfig.rb; gem install bundler jekyll; cd $SAVED_DIR; bundle
 ```
