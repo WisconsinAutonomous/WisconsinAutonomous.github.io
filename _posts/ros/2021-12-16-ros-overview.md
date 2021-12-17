@@ -44,6 +44,8 @@ REPO
 └── README.md
 ```
 
+A template has been made with the aforementioned structure to streamline the creation process for this type of repo. The template can be found [here](https://github.com/WisconsinAutonomous/wa-control-stack).
+
 ### `docker-compose.yml`
 
 [Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker-compose` that simplifies building/running/executing on containers that is cross platform.
