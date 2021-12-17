@@ -187,8 +187,8 @@ This is a **4** step process
 To add a node to the `new_package` package, you can run the following:
 
 ```
-$ cd src/new_package/new_package/
-$ hygen ros2 python-node
+cd src/new_package/new_package/
+hygen ros2 python-node
 ```
 
 You will be prompted to enter some basic information about the node, and a file for a new node will be written in the current directory. You should enter this information exactly as is documented the [WA Software Architecture Diagram](https://drive.google.com/file/d/1nBj6e1DiyWXzSxHhxgPGXwtTzqKDPyTg/view?usp=sharing)
@@ -293,14 +293,15 @@ if __name__ == '__main__':
     main()
 ```
 
-
 **2.**
 Before you can run the node, you need to make sure the build system `colcon` will see it. 
 
 - **2a)** First, make it executable by running: 
+
+```bash
+chmod +x new_node.py
 ```
-$ chmod +x new_node.py
-```
+
 - **2b)** Next, update the `setup.py` file in `src/my_package/`:
 
 ```python
@@ -314,17 +315,46 @@ entry_points={
 **3.**
 
 - **3a)** Now, return to the `workspace` directory,
+
+```bash
+cd /root/REPO/workspace
 ```
-$ cd /root/REPO/workspace
-```
+
 - **3b)** and run `colcon build` or `make build`.
 
 - **3c)** Make sure to source your shell so the build changes take effect by running `source ./install/setup.bash` OR `source ./install/setup.bash`
 
 **4.**
 Once that has completed, verify that the executable can be seen:
+
+```bash
+ros2 pkg executables new_package
 ```
-$ ros2 pkg executables new_package
+
+### Visualizing ROS Topics
+
+Each control stack should also have a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for [ROSboard](https://github.com/wisconsinautonomous/rosboard). ROSboard allows easy visualization of ROS topics without the need for many external packages. It can also be easily including the ROS framework, meaning it can be incorporated in launch files and other ROS specific tools. To learn more, please reference the [README](https://github.com/wisconsinautonomous/rosboard).
+
+The Docker container for `REPO`  should already be setup with ROSboard and should work out of the box. If you'd like to use ROSboard as a standalone node (outside of launch files), run the following command.
+
+```bash
+ros2 run rosboard rosboard_node
+```
+
+This will run the rosboard server and start a server on port `8888`. This means that the webpage from rosboard is served to the url `http://localhost:8888`. Navigate there in a browser and you should see ROSboard!
+
+To visualize messages, click the hamburger menu at the top left. There, you can select what messages you'd like to visualize. The ROSboard repository was forked into the Wisconsin Autonomous team, so if there are custom visualizations that would like to be viewed with custom message types, this can be implemented there. Refer to the ROSboard documentation for information on how to do this.
+
+## Other Tools
+
+### License Script
+
+The license script is located at `misc/scripts/licenseheaders.py`. This is an automatic script that will automatically update the headers of each file in the `workspace/src` folder. We want to make sure they are updated with the correct year and license for our team. The boilerplace license code is located at `REPO/.copyright.tmpl`. 
+
+To run the script, use the following command from within the `REPO` root directory:
+
+```
+python misc/scripts/licenseheaders.py
 ```
 
 ## Support
