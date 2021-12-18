@@ -8,7 +8,6 @@ tags: [ros, technical]
 
 This guide outlines how Wisconsin Autonomous structures their ROS respositories. 
 
-
 ## Purpose
 
 A major difference between Wisconsin Autonomous and industry is that in WA, we have much higher turnover. This is because students graduate or move on. In addition, industry has employees working 40hrs a week and WA has students working 5-10hrs a week. As a result, planning is very important to ensure the time we do spend working on WA is not wasted.
@@ -21,11 +20,13 @@ It is very important the ideas presented on this page are followed.
 
 We'll refer to the control stack repository as `REPO` from now on.
 
-#### ROS
+### ROS
 
 The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/foxy/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, plesae refer to the [ROS tutorials](https://docs.ros.org/en/foxy/Tutorials.html).
 
-#### Docker
+We have also created a easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
+
+### Docker
 
 Additionally, [Docker](https://www.docker.com/) is used to mitigate setup headaches. Please research Docker to understand what it is exactly. Detailed instructions will be provided on how to use it.
 
