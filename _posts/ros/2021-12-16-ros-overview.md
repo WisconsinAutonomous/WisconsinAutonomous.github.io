@@ -351,13 +351,17 @@ To visualize messages, click the hamburger menu at the top left. There, you can 
 
 ### License Script
 
-The license script is located at `misc/scripts/licenseheaders.py`. This is an automatic script that will automatically update the headers of each file in the `workspace/src` folder. We want to make sure they are updated with the correct year and license for our team. The boilerplace license code is located at `REPO/.copyright.tmpl`. 
+It is important that files have a license header. Licenses aren't necessarily used to disallow people from stealing your code, but it actually allows them to use it.
 
-To run the script, use the following command from within the `REPO` root directory:
+The [wa\_cli](https://github.com/WisconsinAutonomous/wa_cli) has an entrypoint at `wa script license` that updates these headers automatically for you.
+
+To do this, run the following command inside the root directory of `REPO`:
 
 ```
-python misc/scripts/licenseheaders.py
+wa script license .
 ```
+
+For more information on the `license` command, run the previous command with a `--help` flag.
 
 ## Support
 
