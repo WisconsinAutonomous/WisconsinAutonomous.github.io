@@ -24,7 +24,7 @@ Relevant Information:
 
 2. Select "Reservation", as seen below:
 
-![Reservation Dashboard](/assets/img/tutorials/fleet-vehicle/1_dashboard_reservation.png)
+	![Reservation Dashboard](/assets/img/tutorials/fleet-vehicle/1_dashboard_reservation.png)
 
 3. Set yourself as the driver, and click "Make New Reservation"
 
@@ -42,25 +42,25 @@ Relevant Information:
 	- Use Code: T04034416 (for mechanical engineering dept., confirm with Glenn)
 	- Percentage: 100
 
-It should look something like the following:
+	It should look something like the following:
 
-![Reservation Example](/assets/img/tutorials/fleet-vehicle/2_reservation_example.png)
+	![Reservation Example](/assets/img/tutorials/fleet-vehicle/2_reservation_example.png)
 
 6. Click "Find Availability" to make sure a vehicle is available
 
-![Vehicle Available](/assets/img/tutorials/fleet-vehicle/3_vehicle_available.png)
+	![Vehicle Available](/assets/img/tutorials/fleet-vehicle/3_vehicle_available.png)
 
 7. Click "Make Reservation", and then navigate back to your home dashboard. You should see the reservation marked by "Confirmed" status.
 
-![Dashboard Confirmed](/assets/img/tutorials/fleet-vehicle/4_dashboard_confirmed.png)
+	![Dashboard Confirmed](/assets/img/tutorials/fleet-vehicle/4_dashboard_confirmed.png)
 
 8. Then click the registration number and confirm that the reservation matches what you want. If anything is wrong, click "edit" to update the reservation accordingly.
 
-![Registration Number](/assets/img/tutorials/fleet-vehicle/5_registration_number.png)
+	![Registration Number](/assets/img/tutorials/fleet-vehicle/5_registration_number.png)
 
 9. Check for your email confirming that you have made the reservation
 
-![Email Confirmation](/assets/img/tutorials/fleet-vehicle/6_email_confirmation.png)
+	![Email Confirmation](/assets/img/tutorials/fleet-vehicle/6_email_confirmation.png)
 
 ## Pick Up the Vehicle
 
