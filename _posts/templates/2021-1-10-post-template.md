@@ -16,6 +16,22 @@ Create your file under `_posts/<folder>` where `<folder>` is a folder that best 
 
 The file **must** be titled like `YYYY-MM-DD-TITLE.EXTENSION`. Please note that the `EXTENSION` must be one of `md` and `markdown`.
 
+### Using the `wa_cli`
+
+You can also use the CLI exposed from the [wa\_cli](https://wisconsinautonomous.github.io/wa_cli). See the aforementioned link for installation information.
+
+To make a template post, after installing `wa_cli`, you can use the following command:
+
+```bash
+wa wiki post --author <author> --catergory <category 1> --category <category 2> --tag <tag 1> --tag <tag 2> --tag <tag 3> <title>
+```
+
+For instance, to make the [Markdown Overview Post](/posts/writing-a-new-post), you'd run the following command:
+
+```bash
+wa wiki post --category Introduction --category "Wiki Tutorials" --author "Aaron Young" --email "aryoung5@wisc.edu" --tag tutorials --tag non-technical --title "Writing a New Post"
+```
+
 ## Front Matter
 This should go at the very top of your `.md` file. Make sure you update the values with the correct information. The timezone offset is currently set for Madison time (UTC-0600).
 
