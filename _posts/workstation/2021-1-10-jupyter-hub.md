@@ -82,7 +82,7 @@ Furthermore, located within the `jupyterhub_config.py`, the `autonomous-sudo` us
 
 :exclamation: TODO: Details on how to setup conda env for user :exclamation:
 
-:exclamation: TODO: Security details. As of 1/5/2020 our domain (www.wisconsinautonomous.org) is owned by Wix.com, so will need to wait at a minimum 60 days to configure custom URL, i.e. still have to use `localhost:8000/jupyter` :exclamation:
+:exclamation: TODO: Security details. As of 1/5/2020 our domain (wa.wisc.edu) is owned by Wix.com, so will need to wait at a minimum 60 days to configure custom URL, i.e. still have to use `localhost:8000/jupyter` :exclamation:
 
 ## Support
 
@@ -90,7 +90,7 @@ Contact [Aaron Young](mailto:aryoung5@wisc.edu) for any questions or concerns re
 
 ## See Also
 
-Stay up to date with our technical info by following our [blog](https://www.wisconsinautonomous.org/blog).
+Stay up to date with our technical info by following our [blog](https://wa.wisc.edu/blog).
 
 Follow us on [Facebook](https://www.facebook.com/wisconsinautonomous/), [Instagram](https://www.instagram.com/wisconsinautonomous/), and [LinkedIn](https://www.linkedin.com/company/wisconsin-autonomous/about/)!
 

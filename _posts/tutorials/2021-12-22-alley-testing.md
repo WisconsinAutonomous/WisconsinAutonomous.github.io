@@ -36,7 +36,7 @@ Contact [Wisconsin Autonomous](mailto:wisconsinautonomous@studentorg.wisc.edu) f
 
 ## See Also
 
-Stay up to date with our technical info by following our [blog](https://www.wisconsinautonomous.org/blog).
+Stay up to date with our technical info by following our [blog](https://wa.wisc.edu/blog).
 
 Follow us on [Facebook](https://www.facebook.com/wisconsinautonomous/), [Instagram](https://www.instagram.com/wisconsinautonomous/), and [LinkedIn](https://www.linkedin.com/company/wisconsin-autonomous/about/)!
 
