@@ -89,7 +89,7 @@ To get started, you will need to install [Docker](https://docs.docker.com/deskto
 
 ### Docker Setup
 
-In order to support multiple containers, we'll need to create a Docker [network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
+In order to support multiple containers, we'll need to create a [Docker network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
 
 To create the network, run the following command:
 
@@ -347,6 +347,39 @@ ros2 run rosboard rosboard_node
 This will run the rosboard server and start a server on port `8888`. This means that the webpage from rosboard is served to the url `http://localhost:8888`. Navigate there in a browser and you should see ROSboard!
 
 To visualize messages, click the hamburger menu at the top left. There, you can select what messages you'd like to visualize. The ROSboard repository was forked into the Wisconsin Autonomous team, so if there are custom visualizations that would like to be viewed with custom message types, this can be implemented there. Refer to the ROSboard documentation for information on how to do this.
+
+### Visualizing Other GUI Apps
+
+In addition to `rosboard`, you may also want to use `novnc` as a tool for visualizing gui apps. [novnc](https://novnc.com/info.html) is a tool for running [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) in a browser. With the correct setup, this allows you to run gui tools in a docker container and visualize them in your browser. Typically, running gui apps is very difficult in docker containers, but it is made simple with `novnc`.
+
+The [wa\_cli](https://WisconsinAutonomous.github.io/wa_cli) provides a very convenient entrypoint at `wa docker novnc` to spin up a `novnc` container that can run on the same Docker `network` as the ros stack. Then, if the container has set it's `DISPLAY` environment variable to `novnc:0.0` (provided the `novnc` docker container has been named 'novnc'), any gui apps that are displayed can be seen in the browser at [http://localhost:8080/vnc\_auto.html](http://localhost:8080/vnc_auto.html) (also assuming the 8080 port has been exposed by the container.
+
+As you can tell, there quite a few requirements. So, the `wa_cli` provides an entrypoint to do this for you. The documentation command can be found [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-novnc). To spin up the `novnc` container, please run the following command:
+
+```bash
+wa docker novnc
+```
+
+## Using Simulations
+
+Simulations are powerful in order to quickly set up scenarios with your ROS stack. `wa_simulator` has been made just for this, along with it's ros bridge `wa_simulator_ros_bridge`. The documentation for the simulator can be found [here](https://WisconsinAutonomous.github.io/wa_simulator).
+
+Because we are using Docker as the main tool for running ROS, the easiest way to have simulators interface with our software stack is also through Docker. This can be done via Docker networks, which were discussed earlier.
+
+### Running `wa_simulator` Scripts
+
+To run `wa_simulator` scripts with your ROS software stack in docker, the `wa_cli` provides an entrypoint at `wa docker run` to do this. Please see the usage guide at [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-run).
+
+As the documentation describes, to run a simulation script, you can run something similar to the following command:
+
+```bash
+wa docker run \
+        --wasim \
+        --data "data/" \
+        script.py 
+```
+
+Where `script.py` is a `wa_simulator` script and `data/` holds the data files needed for the `wa_simulator` script. 
 
 ## Other Tools
 
