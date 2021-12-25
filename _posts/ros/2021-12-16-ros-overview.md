@@ -91,7 +91,13 @@ To get started, you will need to install [Docker](https://docs.docker.com/deskto
 
 In order to support multiple containers, we'll need to create a [Docker network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
 
-To create the network, run the following command:
+The `wa_cli` package has a command that will create the network for you. Make sure you have installed `wa_cli` and you may run the following command:
+
+```bash
+wa docker network
+```
+
+If you'd rather use the docker api, to create the network, you can run the following command:
 
 ```shell
 docker network create \
