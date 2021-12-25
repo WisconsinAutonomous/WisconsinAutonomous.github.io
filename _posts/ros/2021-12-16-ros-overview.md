@@ -366,6 +366,8 @@ Simulations are powerful in order to quickly set up scenarios with your ROS stac
 
 Because we are using Docker as the main tool for running ROS, the easiest way to have simulators interface with our software stack is also through Docker. This can be done via Docker networks, which were discussed earlier.
 
+A more in-depth tutorial was created in the `wa_simulator` docs and that can be found [here](https://wisconsinautonomous.github.io/wa_simulator/tutorials/docker-usage.html).
+
 ### Running `wa_simulator` Scripts
 
 To run `wa_simulator` scripts with your ROS software stack in docker, the `wa_cli` provides an entrypoint at `wa docker run` to do this. Please see the usage guide at [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-run).
