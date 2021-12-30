@@ -178,9 +178,7 @@ To install these packages, run the following command:
 pip install -r host-requirements.txt
 ```
 
-```{note}
-It is recommended to use a python environment of some sort (i.e. Anaconda or venv). Activate the environment prior to running the previous command.
-```
+{% include note.html content="It is recommended to use a python environment of some sort (i.e. Anaconda or venv). Activate the environment prior to running the previous command." %}
 
 ### Installing Docker
 
