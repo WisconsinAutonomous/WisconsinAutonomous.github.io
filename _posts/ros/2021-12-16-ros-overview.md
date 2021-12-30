@@ -16,6 +16,10 @@ This guide goes into detail about how Wisconsin Autonomous structures their cont
 
 It is very important the ideas presented on this page are followed. 
 
+## Prerequisites
+
+We'll refer to the control stack repository as `REPO` from now on.
+
 ## TL;DR
 
 ### Required Packages
@@ -27,11 +31,15 @@ It is very important the ideas presented on this page are followed.
 
 ### 1. Clone the Repository
 
+_Needed only once._
+
 ```bash
 git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
 ```
 
 ### 2. Install Host Python Dependencies
+
+_Needed only once._
 
 ```bash
 pip install -r host-requirements.txt
@@ -41,34 +49,52 @@ pip install -r host-requirements.txt
 
 ### 3. Create the Docker Network
 
+_Needed only once._
+
 ```bash
 wa docker network
 ```
 
 ### 4. Use the Docker Development Environment
 
-**Building:**
+#### 4.1 Using `wa docker stack`
+
+**Building, Starting, and Entering:**
 
 ```bash
-docker-compose build wagrandprix-dev
-```
-
-**Starting:**
-
-```bash
-docker-compose up -d wagrandprix-dev
-```
-
-**Entering:**
-
-```bash
-docker-compose exec wagrandprix-dev bash
+wa docker stack REPO-dev
 ```
 
 **Tearing Down:**
 
 ```bash
-docker-compose down wagrandprix-dev
+wa docker stack REPO-dev --down
+```
+
+#### 4.2 Using `docker-compose`
+
+**Building:**
+
+```bash
+docker-compose build REPO-dev
+```
+
+**Starting:**
+
+```bash
+docker-compose up -d REPO-dev
+```
+
+**Entering:**
+
+```bash
+docker-compose exec REPO-dev bash
+```
+
+**Tearing Down:**
+
+```bash
+docker-compose down REPO-dev
 ```
 
 ### 5. Test the Stack with wa_simulator
@@ -84,10 +110,6 @@ wa docker novnc
 ```
 
 Navigate to [https://localhost:8080/vnc\_auto.html](https://localhost:8080/vnc_auto.html).
-
-## Prerequisites
-
-We'll refer to the control stack repository as `REPO` from now on.
 
 ### ROS
 
@@ -205,32 +227,22 @@ docker network create \
 
 This command created a network titled `wa`.
 
-### Starting the Control Stack
+### Developing in the Control Stack
 
 For development, we'll focus on the `REPO-dev` service.
 
-The very first time you start up the control stack, it will need to build the image that the container users. This may take a while, but should only need to be done the first time around.
+The very first time you start up the control stack, it will need to build the image that the container uses. This may take a while, but should only need to be done the first time around.
 
-To start the container (and build it if it isn't built yet), run the following command.
+It is _strongly_ recommended that you use the `wa_cli` to start, exec, build, and tear down the containers. Using the `wa_cli`, you can start, build, and attach to the container with on command.
 
 ```shell
- docker-compose up -d REPO-dev
+wa docker stack REPO-dev
 ```
 
-If it completes successfully, it should say something similar to the following:
+With `docker-compose`, this requires two steps:
 
 ```shell
-[+] Running 1/1
- ⠿ Container REPO-dev  Started
-```
-
-The container is now running in the background.
-
-### Entering the Container
-
-After starting the container, to actually use it and run ROS commands, you'll need to attach to it in your shell. To do this, run the following command.
-
-```shell
+docker-compose up -d REPO-dev
 docker-compose exec REPO-dev bash
 ```
 
@@ -238,16 +250,22 @@ Within the container, you should enter the shell in the `/root/` directory. With
 
 For development purposes, you can use whatever tools you'd like for editing the code (`Atom`, `VSCode`, etc.). Because `/root/REPO` in the container is a volume (see previous paragraph), changes from your system will also be copied to your container.
 
-Various tools are installed to aid development, such as `tmux`. Feel free to leverage these. The `docker-compose exec ...` command can also be run from any terminal window (as long as it's run from within this repository); this is the advantage of running `docker-compose up` in the background (detached).
+Various tools are installed to aid development, such as `tmux`. Feel free to leverage these. The `wa docker stack...` or `docker-compose exec ...` commands can also be run from any terminal window to attach to a new shell session (as long as it's run from within this repository); this is the advantage of running the container in the background (detached).
 
-For those interested, you may use other shells. `zsh` and `bash` should both alread  be installed, but you may need to install other shells, if desired.
+For those interested, you may use other shells. `zsh` and `bash` should both already be installed, but you may need to install other shells, if desired.
 
 ### Stopping the Container
 
-When you are finished and would like to free up resources on your computer, you may shutdown the container with the following command.
+When you are finished and would like to free up resources on your computer, you may shutdown the container with either of the following commands.
 
 ```shell
-docker-compose down
+wa docker stack REPO-dev --down
+```
+
+or
+
+```shell
+docker-compose down REPO-dev
 ```
 
 ### Building the ROS Workspace
