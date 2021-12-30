@@ -16,6 +16,63 @@ This guide goes into detail about how Wisconsin Autonomous structures their cont
 
 It is very important the ideas presented on this page are followed. 
 
+## TL;DR
+
+### Required Packages
+
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Python3](https://www.python.org/)
+- [Git](https://git-scm.com/)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/WisconsinAutonomous/waGrandPrix.git && cd waGrandPrix
+```
+
+### Host Python Packages
+
+```bash
+pip install -r host-requirements.txt
+```
+
+```{note}
+A python environment is recommended (Anaconda, venv, etc.)
+```
+
+### Using the Docker Development Environment
+
+**Building:**
+
+```bash
+docker-compose build wagrandprix-dev
+```
+
+**Starting:**
+
+```bash
+docker-compose up -d wagrandprix-dev
+```
+
+**Entering:**
+
+```bash
+docker-compose exec wagrandprix-dev bash
+```
+
+**Tearing Down:**
+
+```bash
+docker-compose down wagrandprix-dev
+```
+
+### Testing the Stack with wa_simulator
+
+```bash
+wa docker run --wasim --data wasim/data wasim/baseline_track.py
+```
+
 ## Prerequisites
 
 We'll refer to the control stack repository as `REPO` from now on.
