@@ -88,6 +88,20 @@ Docker is a powerful application that is out of the scope of this README. Beyond
 
 For all of the commands we'll mention, they must be run from within the target repository. 
 
+### Installing Required Packages
+
+First, you need to install any necessary python packages for `REPO`. There should be a file called `host-requirements.txt`, which contains any python packages needed to run the control stack. At the very least, this file will contain `wa_cli`, which is the command line interface tool created for the Wisconsin Autonomous team.
+
+To install these packages, run the following command:
+
+```bash
+pip install -r host-requirements.txt
+```
+
+```{note}
+It is recommended to use a python environment of some sort (i.e. Anaconda or venv). Activate the environment prior to running the previous command.
+```
+
 ### Installing Docker
 
 To get started, you will need to install [Docker](https://docs.docker.com/desktop/) and [Docker Compose](https://docs.docker.com/compose/install/). Please refer to the previous links for instructions on how to install.
