@@ -207,8 +207,9 @@ For example, to create a new python package, run the following: `ros2 pkg create
 
 ### Creating a Node
 
-<details><summary>Click Me</summary>
-<p>
+<details>
+<summary>Click Me</summary>
+<p markdown="block">
 
 Most of the time you won't be creating new packages, but just adding nodes to existing packages. We are using a templating tool called [Hygen](https://www.hygen.io/) to help with boiler plate code. Hygen is already installed and configured in the development docker container, so that is the recommended avenue to use it. Otherwise, you are responsible for installing and setting it up (you need to set the `HYGEN_TMPLS` environment variable to the `_templates` directory).
 
@@ -363,7 +364,7 @@ ros2 pkg executables new_package
 ```
 
 </p>
-</detail>
+</details>
 
 ### Visualizing ROS Topics
 
