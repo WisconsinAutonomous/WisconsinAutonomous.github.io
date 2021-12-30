@@ -25,13 +25,13 @@ It is very important the ideas presented on this page are followed.
 - [Python3](https://www.python.org/)
 - [Git](https://git-scm.com/)
 
-### Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/WisconsinAutonomous/waGrandPrix.git && cd waGrandPrix
 ```
 
-### Host Python Packages
+### 2. Install Host Python Dependencies
 
 ```bash
 pip install -r host-requirements.txt
@@ -41,7 +41,13 @@ pip install -r host-requirements.txt
 A python environment is recommended (Anaconda, venv, etc.)
 ```
 
-### Using the Docker Development Environment
+### 3. Create the Docker Network
+
+```bash
+wa docker network
+```
+
+### 4. Use the Docker Development Environment
 
 **Building:**
 
@@ -67,11 +73,19 @@ docker-compose exec wagrandprix-dev bash
 docker-compose down wagrandprix-dev
 ```
 
-### Testing the Stack with wa_simulator
+### 5. Test the Stack with wa_simulator
 
 ```bash
 wa docker run --wasim --data wasim/data wasim/baseline_track.py
 ```
+
+### 6. Visualize GUI Applications
+
+```bash
+wa docker novnc
+```
+
+Navigate to [https://localhost:8080/vnc\_auto.html](https://localhost:8080/vnc_auto.html).
 
 ## Prerequisites
 
