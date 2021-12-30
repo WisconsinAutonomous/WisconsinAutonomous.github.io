@@ -28,7 +28,7 @@ It is very important the ideas presented on this page are followed.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/WisconsinAutonomous/waGrandPrix.git && cd waGrandPrix
+git clone https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
 ```
 
 ### 2. Install Host Python Dependencies
