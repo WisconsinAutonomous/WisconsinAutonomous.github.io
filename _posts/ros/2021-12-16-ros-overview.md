@@ -37,9 +37,7 @@ git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO
 pip install -r host-requirements.txt
 ```
 
-```{note}
-A python environment is recommended (Anaconda, venv, etc.)
-```
+{% include note.html content="A python environment is recommended (Anaconda, venv, etc.)" %}
 
 ### 3. Create the Docker Network
 
@@ -167,9 +165,8 @@ You should really already know how to do this. An example command to clone the `
 git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
 ```
 
-```{note}
-`--recursive` is recommended so that all [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are automatically pulled along with the main repository. If this isn't done during this step, you may do this after the fact with `git submodule update --init`.
-```
+{% include note.html content="`--recursive` is recommended so that all [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are automatically pulled along with the main repository. If this isn't done during this step, you may do this after the fact with `git submodule update --init`." %}
+
 
 ### Installing Required Packages
 

@@ -351,3 +351,9 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
     margin-right: -.5rem;
   }
 }
+
+.alert-info {
+	color: var(--text-color);
+	background-color: var(--card-bg);
+	border-color: var(--card-border-color);
+}
