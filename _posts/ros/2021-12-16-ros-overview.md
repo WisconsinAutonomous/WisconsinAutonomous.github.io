@@ -24,7 +24,7 @@ We'll refer to the control stack repository as `REPO` from now on.
 
 The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/foxy/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, plesae refer to the [ROS tutorials](https://docs.ros.org/en/foxy/Tutorials.html).
 
-We have also created a easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
+We have also created an easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
 
 ### Docker
 
@@ -40,6 +40,7 @@ REPO
 ├── docker/             # Dockerfiles
 ├── docs/               # Documentation/tutorials specific to this repo
 ├── misc/               # Miscellaneous scripts and resources
+├── wasim/          		# wa_simulator scenarios that can be used to test the control stack
 ├── workspace/          # ROS 2 workspace
 ├── _templates/         # Templates for generating ROS nodes
 └── README.md
@@ -66,6 +67,10 @@ This folder holds general documentation or tutorials specific to this repository
 ### `misc/`
 
 This should house miscellaneous resources and/or scripts. This should again be specific to the repository. Anything common across repos should go in a shared repository.
+
+### `wasim/`
+
+This folder contains `wa_simulator` scripts that implement various simulation scenarios. This folder, in conjunction with the `wa_cli`, is simply a way of providing simulation files without the need to create them each time or clone `wa_simulator` locally.
 
 ### `workspace/`
 
@@ -187,6 +192,9 @@ Packages can be created using the `ros2 pkg create` command. Use `ros2 pkg creat
 For example, to create a new python package, run the following: `ros2 pkg create --built-type ament_python new_package` from the `/root/REPO/workspace/src` directory. This will create a new package at the directory level.
 
 ### Creating a Node
+
+<details><summary>Click Me</summary>
+<p>
 
 Most of the time you won't be creating new packages, but just adding nodes to existing packages. We are using a templating tool called [Hygen](https://www.hygen.io/) to help with boiler plate code. Hygen is already installed and configured in the development docker container, so that is the recommended avenue to use it. Otherwise, you are responsible for installing and setting it up (you need to set the `HYGEN_TMPLS` environment variable to the `_templates` directory).
 
@@ -340,6 +348,9 @@ Once that has completed, verify that the executable can be seen:
 ros2 pkg executables new_package
 ```
 
+</p>
+</detail>
+
 ### Visualizing ROS Topics
 
 Each control stack should also have a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for [ROSboard](https://github.com/wisconsinautonomous/rosboard). ROSboard allows easy visualization of ROS topics without the need for many external packages. It can also be easily including the ROS framework, meaning it can be incorporated in launch files and other ROS specific tools. To learn more, please reference the [README](https://github.com/wisconsinautonomous/rosboard).
@@ -378,16 +389,16 @@ A more in-depth tutorial was created in the `wa_simulator` docs and that can be 
 
 To run `wa_simulator` scripts with your ROS software stack in docker, the `wa_cli` provides an entrypoint at `wa docker run` to do this. Please see the usage guide at [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-run).
 
-As the documentation describes, to run a simulation script, you can run something similar to the following command:
+As the documentation describes, to run a basic simulation script in the `wasim/` subfolder, you can run something similar to the following command:
 
 ```bash
 wa docker run \
         --wasim \
-        --data "data/" \
-        script.py 
+        --data "wasim/data/" \
+        wasim/script.py 
 ```
 
-Where `script.py` is a `wa_simulator` script and `data/` holds the data files needed for the `wa_simulator` script. 
+Where `script.py` is a `wa_simulator` script and `data/` holds the data files needed for the `wa_simulator` script, where both are inside the `wasim/` folder. 
 
 ## Other Tools
 
