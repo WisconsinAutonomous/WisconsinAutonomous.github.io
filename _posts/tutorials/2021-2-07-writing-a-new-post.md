@@ -40,26 +40,15 @@ This will basically download the code to your system so you can edit it.
 
 ## Local Development Environment
 
-To create a local development environment, it's definitely recommended to use [Anaconda](https://docs.anaconda.com/anaconda/install/) so you don't have unneeded files persisting on your system.
+To simplify the development environment, we'll use [Docker](https://www.docker.com/). Please refer to the official documentation for an installation guide.
 
-To do so, [setup](#setup) this repository on your local system and create the conda environment with this command:
-```shell
-conda create -n wa-web ruby gcc_linux-64 gxx_linux-64
-conda activate wa-web
-```
-> Note: Change wa-web to whatever name you'd like
+We'll be using docker to basically build the wiki in a linux server, and then we'll serve it to a local url at `https://localhost:4000`. To do this, run the following command at the root of the `WisconsinAutonomous.github.io` repo (assumes you have installed docker):
 
-Next, we need to apply a patch/fix to the anaconda environment to be able to use it for development. Copy and paste the following commands into _the same directory where you have activated the environment_. **This will take a minute or two**.
-```shell
-SAVED_DIR=$PWD; cd $(gem environment gemdir); cd ../../$(basename $PWD)/$(gem environment platform | sed -e 's/.*://'); mv rbconfig.rb rbconfig.rb.bu; perl -pe 's/\/\S*?\/_build_env\/bin\///g' rbconfig.rb.bu > rbconfig.rb; gem install bundler jekyll; cd $SAVED_DIR; bundle
+```bash
+docker run -it --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 jekyll/jekyll jekyll serve
 ```
 
-Once everything is installed, you can create a local server that you can access on your browser to see your changes. Run the following command to do that:
-```shell
-bundle exec jekyll s
-```
-
-Now, navigate to `http://127.0.0.1:4000/` to see the site!
+It will take a few minutes to build. Once it is built, you can navigate to `https://localhost:4000` to see the built changes. The docker container will continue to run until you stop the process. Any new changes you make to the repository will then cause a rebuild, which will can be seen at the url.
 
 ## Deploying
 
