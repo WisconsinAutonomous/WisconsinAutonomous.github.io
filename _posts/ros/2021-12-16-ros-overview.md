@@ -28,7 +28,7 @@ It is very important the ideas presented on this page are followed.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
+git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
 ```
 
 ### 2. Install Host Python Dependencies
@@ -158,6 +158,18 @@ This folder holds the metadata in order for [Hygen](https://www.hygen.io) to gen
 Docker is a powerful application that is out of the scope of this README. Beyond Wisconsin Autonomous, knowing what and how to use Docker is a very valuable skill. To learn more, visit [their website](https://www.docker.com/). You can also find a huge amount of tutorials and resources just through Google. Please spend some time understanding Docker before continuing. For the remainder of this tutorial, it is assumed you understand `docker` and `docker-compose`.
 
 For all of the commands we'll mention, they must be run from within the target repository. 
+
+### Clone the Repository
+
+You should really already know how to do this. An example command to clone the `REPO` repository locally is provided below:
+
+```bash
+git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
+```
+
+```{note}
+`--recursive` is recommended so that all [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are automatically pulled along with the main repository. If this isn't done during this step, you may do this after the fact with `git submodule update --init`.
+```
 
 ### Installing Required Packages
 
