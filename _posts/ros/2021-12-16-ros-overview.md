@@ -45,7 +45,7 @@ _Needed only once._
 pip install -r host-requirements.txt
 ```
 
-{% include note.html content="A python environment is recommended (Anaconda, venv, etc.)" %}
+{% include note.html content="We recommend using a python environment (Anaconda, venv, etc.)." %}
 
 ### 3. Create the Docker Network
 
