@@ -47,42 +47,34 @@ pip install -r host-requirements.txt
 
 {% include note.html content="We recommend using a python environment (Anaconda, venv, etc.)." %}
 
-### 3. Create the Docker Network
+### 3. Use the Docker Development Environment
 
-_Needed only once._
-
-```bash
-wa docker network
-```
-
-### 4. Use the Docker Development Environment
-
-#### 4.1 Using `wa docker stack`
+#### 3.1 Using `wa docker stack`
 
 **Building, Starting, and Entering:**
 
 ```bash
-wa docker stack REPO-dev
+wa docker stack
 ```
 
 **Tearing Down:**
 
 ```bash
-wa docker stack REPO-dev --down
+wa docker stack --down
 ```
 
-#### 4.2 Using `docker-compose`
+#### 3.2 Using `docker-compose`
 
 **Building:**
 
 ```bash
-docker-compose build REPO-dev
+docker-compose build
 ```
 
 **Starting:**
 
 ```bash
-docker-compose up -d REPO-dev
+docker-compose up -d
 ```
 
 **Entering:**
@@ -94,26 +86,22 @@ docker-compose exec REPO-dev bash
 **Tearing Down:**
 
 ```bash
-docker-compose down REPO-dev
+docker-compose down
 ```
 
-### 5. Test the Stack with wa_simulator
+### 4. Test the Stack with wa_simulator
 
 ```bash
 wa docker run --wasim --data wasim/data wasim/baseline_track.py
 ```
 
-### 6. Visualize GUI Applications
-
-```bash
-wa docker novnc
-```
+### 5. Visualize GUI Applications
 
 Navigate to [https://localhost:8080/vnc\_auto.html](https://localhost:8080/vnc_auto.html).
 
 ### ROS
 
-The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/foxy/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, plesae refer to the [ROS tutorials](https://docs.ros.org/en/foxy/Tutorials.html).
+The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/galactic/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, plesae refer to the [ROS tutorials](https://docs.ros.org/en/galactic/Tutorials.html).
 
 We have also created an easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
 
@@ -145,7 +133,7 @@ A template has been made with the aforementioned structure to streamline the cre
 
 The `docker-compose.yml` file defines configuration variables for the `docker` containers within it. 
 
-All `docker-compose.yml` files will have two `services`: `REPO-dev` and `REPO-prod`. `REPO-dev` is meant for local development. `REPO-prod` is meant for production and will most likely be run on the actual vehicle.
+All `docker-compose.yml` files will have one `service`: `REPO-dev`. `REPO-dev` is meant for specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker.
 
 ### `docker/`
 
@@ -208,7 +196,9 @@ To get started, you will need to install [Docker](https://docs.docker.com/deskto
 
 ### Docker Setup
 
-In order to support multiple containers, we'll need to create a [Docker network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
+In order to support multiple containers, we'll use a [Docker network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
+
+By default, most other commands in the `wa_cli` package will automatically spin up a network. For the most part, you may safely ignore this section. If you run into any errors related to networks, you may want to return to this section.
 
 The `wa_cli` package has a command that will create the network for you. Make sure you have installed `wa_cli` and you may run the following command:
 
@@ -236,7 +226,7 @@ The very first time you start up the control stack, it will need to build the im
 It is _strongly_ recommended that you use the `wa_cli` to start, exec, build, and tear down the containers. Using the `wa_cli`, you can start, build, and attach to the container with on command.
 
 ```shell
-wa docker stack REPO-dev
+wa docker stack
 ```
 
 With `docker-compose`, this requires two steps:
@@ -259,7 +249,7 @@ For those interested, you may use other shells. `zsh` and `bash` should both alr
 When you are finished and would like to free up resources on your computer, you may shutdown the container with either of the following commands.
 
 ```shell
-wa docker stack REPO-dev --down
+wa docker stack --down
 ```
 
 or
@@ -487,6 +477,8 @@ As you can tell, there quite a few requirements. So, the `wa_cli` provides an en
 ```bash
 wa docker novnc
 ```
+
+{% include note.html content="By default, most other `wa_cli` commands will run `wa docker novnc` implicitly. You may not need to run this yourself." %}
 
 ## Using Simulations
 
