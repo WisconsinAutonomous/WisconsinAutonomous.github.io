@@ -11,11 +11,12 @@ order: 1
 ---
 
 Checkout the documentation for the following repo(s):
-- [wa_simulator docs](https://WisconsinAutonomous.github.io/wa_simulator)
+- [wa\_simulator docs](https://WisconsinAutonomous.github.io/wa_simulator)
+- [wa\_cli docs](https://WisconsinAutonomous.github.io/wa_cli)
 
 ## Support
 
-Contact [Aaron Young](mailto:aryoung5@wisc.edu) for any questions or concerns regarding the contents of this site.
+Contact [Wisconsin Autonomous](mailto:wisconsinautonomous@studentorg.wisc.edu) for any questions or concerns regarding the contents of this site.
 
 ## See Also
 
