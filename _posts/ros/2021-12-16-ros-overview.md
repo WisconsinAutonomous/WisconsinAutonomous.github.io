@@ -119,9 +119,9 @@ REPO
 ├── docker/             # Dockerfiles
 ├── docs/               # Documentation/tutorials specific to this repo
 ├── misc/               # Miscellaneous scripts and resources
+		└── _templates/			# Templates for generating ROS nodes
 ├── wasim/          		# wa_simulator scenarios that can be used to test the control stack
 ├── workspace/          # ROS 2 workspace
-├── _templates/         # Templates for generating ROS nodes
 └── README.md
 ```
 
