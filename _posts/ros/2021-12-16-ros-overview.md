@@ -42,7 +42,7 @@ git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO
 _Needed only once._
 
 ```bash
-pip install -r host-requirements.txt
+pip install -r requirements.txt
 ```
 
 {% include note.html content="We recommend using a python environment (Anaconda, venv, etc.)." %}
@@ -97,7 +97,7 @@ wa docker run --wasim --data wasim/data wasim/baseline_track.py
 
 ### 5. Visualize GUI Applications
 
-Navigate to [https://localhost:8080/vnc\_auto.html](https://localhost:8080/vnc_auto.html).
+Navigate to [https://localhost:8080/](https://localhost:8080/).
 
 ## ROS
 
@@ -155,10 +155,6 @@ This folder contains `wa_simulator` scripts that implement various simulation sc
 
 This is where we put the ROS 2 workspace. This is what is specific to each repository. Most of the development will take place here, and we'll go into more detail in future sections of this guide.
 
-### `_templates/`
-
-This folder holds the metadata in order for [Hygen](https://www.hygen.io) to generate templated ROS nodes. This will go into more detail in future sections.
-
 ## Setup and Installation
 
 **DISCLAIMER**: For developing the ROS 2 workspace, you _must_ use the created docker images. This is a requirement because we don't want to have to support multiple operating systems and have to deal with individual people's systems. The only place docker will not be used with this repository is on the actual vehicle (and with our own hardware).
@@ -180,12 +176,12 @@ git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO
 
 ### Installing Required Packages
 
-First, you need to install any necessary python packages for `REPO`. There should be a file called `host-requirements.txt`, which contains any python packages needed to run the control stack. At the very least, this file will contain `wa_cli`, which is the command line interface tool created for the Wisconsin Autonomous team.
+First, you need to install any necessary python packages for `REPO`. There should be a file called `requirements.txt`, which contains any python packages needed to run the control stack. At the very least, this file will contain `wa_cli`, which is the command line interface tool created for the Wisconsin Autonomous team.
 
 To install these packages, run the following command:
 
 ```bash
-pip install -r host-requirements.txt
+pip install -r requirements.txt
 ```
 
 {% include note.html content="It is recommended to use a python environment of some sort (i.e. Anaconda or venv). Activate the environment prior to running the previous command." %}
@@ -291,167 +287,6 @@ Packages can be created using the `ros2 pkg create` command. Use `ros2 pkg creat
 
 For example, to create a new python package, run the following: `ros2 pkg create --built-type ament_python new_package` from the `/root/REPO/workspace/src` directory. This will create a new package at the directory level.
 
-### Creating a Node
-
-<details>
-<summary>Click Me</summary>
-<p markdown="block">
-
-Most of the time you won't be creating new packages, but just adding nodes to existing packages. We are using a templating tool called [Hygen](https://www.hygen.io/) to help with boiler plate code. Hygen is already installed and configured in the development docker container, so that is the recommended avenue to use it. Otherwise, you are responsible for installing and setting it up (you need to set the `HYGEN_TMPLS` environment variable to the `_templates` directory).
-
-This is a **4** step process
-
-**1.**
-To add a node to the `new_package` package, you can run the following:
-
-```
-cd src/new_package/new_package/
-hygen ros2 python-node
-```
-
-You will be prompted to enter some basic information about the node, and a file for a new node will be written in the current directory. You should enter this information exactly as is documented the [WA Software Architecture Diagram](https://drive.google.com/file/d/1nBj6e1DiyWXzSxHhxgPGXwtTzqKDPyTg/view?usp=sharing)
-
-```
-✔ What is the name of the node ? · new_node
-✔ What topics should be subscribed to (comma seperated)? · sub_topic1, sub_topic2, sub_topic3
-✔ What topics should be published (comma seperated)? · pub_topic2, pub_topic2
-
-Loaded templates: /root/REPO/_templates
-       added: ./new_node.py
-```
-
-Resulting in:
-
-```python
-import rclpy
-from rclpy.node import Node
-
-from std_msgs.msg import String
-
-
-class NewNode(Node):
-
-    def __init__(self):
-        super().__init__('new_node')
-
-
-        # Create publisher handles
-        self.publisher_handles = {}
-
-        self.publisher_handles["pub_topic1"] = self.create_publisher(String, "pub_topic1", 10)
-
-        self.publisher_handles["pub_topic2"] = self.create_publisher(String, "pub_topic2", 10)
-
-
-        # Create subscriber handles
-        self.subscriber_handles = {}
-
-        self.subscriber_handles["sub_topic1"] = self.create_subscription(String, "sub_topic1", self.sub_topic1_callback, 10)
-
-        self.subscriber_handles["sub_topic2"] = self.create_subscription(String, "sub_topic2", self.sub_topic2_callback, 10)
-
-        self.subscriber_handles["sub_topic3"] = self.create_subscription(String, "sub_topic3", self.sub_topic3_callback, 10)
-
-
-        # Periodic publishing
-        timer_period = 0.5  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.i = 0
-
-
-    def timer_callback(self):
-        """
-        Basic method for publishing. Get rid of or modify this method,
-        but please include a description of the method as is done here.
-        """
-        msg = String()
-        msg.data = 'Hello World: %d' % self.i
-
-        self.publisher_handles["pub_topic1"].publish(msg)
-
-        self.publisher_handles["pub_topic2"].publish(msg)
-
-        self.get_logger().info('Publishing: "%s"' % msg.data)
-        self.i += 1
-
-
-    def sub_topic1_callback(self, msg):
-        """
-        Callback for the sub_topic1 topic.
-        """
-        self.get_logger().info(f"Received {msg} on topic sub_topic1")
-
-
-    def sub_topic2_callback(self, msg):
-        """
-        Callback for the sub_topic2 topic.
-        """
-        self.get_logger().info(f"Received {msg} on topic sub_topic2")
-
-
-    def sub_topic3_callback(self, msg):
-        """
-        Callback for the sub_topic3 topic.
-        """
-        self.get_logger().info(f"Received {msg} on topic sub_topic3")
-
-
-
-def main(args=None):
-    rclpy.init(args=args)
-
-    new_node = NewNode()
-
-    rclpy.spin(new_node)
-
-    rclpy.shutdown()
-
-
-if __name__ == '__main__':
-    main()
-```
-
-**2.**
-Before you can run the node, you need to make sure the build system `colcon` will see it. 
-
-- **2a)** First, make it executable by running: 
-
-```bash
-chmod +x new_node.py
-```
-
-- **2b)** Next, update the `setup.py` file in `src/my_package/`:
-
-```python
-entry_points={
-  'console_scripts': [
-    'new_node = new_package.new_node:main' # <--- New line
-  ],
-},
-```
-
-**3.**
-
-- **3a)** Now, return to the `workspace` directory,
-
-```bash
-cd /root/REPO/workspace
-```
-
-- **3b)** and run `colcon build` or `make build`.
-
-- **3c)** Make sure to source your shell so the build changes take effect by running `source ./install/setup.bash` OR `source ./install/setup.bash`
-
-**4.**
-Once that has completed, verify that the executable can be seen:
-
-```bash
-ros2 pkg executables new_package
-```
-
-</p>
-</details>
-
 ### Visualizing ROS Topics
 
 Each control stack should also have a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for [ROSboard](https://github.com/wisconsinautonomous/rosboard). ROSboard allows easy visualization of ROS topics without the need for many external packages. It can also be easily including the ROS framework, meaning it can be incorporated in launch files and other ROS specific tools. To learn more, please reference the [README](https://github.com/wisconsinautonomous/rosboard).
@@ -468,17 +303,17 @@ To visualize messages, click the hamburger menu at the top left. There, you can 
 
 ### Visualizing Other GUI Apps
 
-In addition to `rosboard`, you may also want to use `novnc` as a tool for visualizing gui apps. [novnc](https://novnc.com/info.html) is a tool for running [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) in a browser. With the correct setup, this allows you to run gui tools in a docker container and visualize them in your browser. Typically, running gui apps is very difficult in docker containers, but it is made simple with `novnc`.
+In addition to `rosboard`, you may also want to use `vnc` as a tool for visualizing gui apps. [novnc](https://novnc.com/info.html) is a tool for running [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) in a browser. With the correct setup, this allows you to run gui tools in a docker container and visualize them in your browser. Typically, running gui apps is very difficult in docker containers, but it is made simple with `novnc`. Furthermore, `vnc` can also be used using vnc viewers.
 
-The [wa\_cli](https://WisconsinAutonomous.github.io/wa_cli) provides a very convenient entrypoint at `wa docker novnc` to spin up a `novnc` container that can run on the same Docker `network` as the ros stack. Then, if the container has set it's `DISPLAY` environment variable to `novnc:0.0` (provided the `novnc` docker container has been named 'novnc'), any gui apps that are displayed can be seen in the browser at [http://localhost:8080/vnc\_auto.html](http://localhost:8080/vnc_auto.html) (also assuming the 8080 port has been exposed by the container.
+The [wa\_cli](https://WisconsinAutonomous.github.io/wa_cli) provides a very convenient entrypoint at `wa docker vnc` to spin up a `vnc` container that can run on the same Docker `network` as the ros stack. Then, if the container has set it's `DISPLAY` environment variable to `vnc:0.0` (provided the `vnc` docker container has been named 'vnc'), any gui apps that are displayed can be seen in the browser at [http://localhost:8080/](http://localhost:8080/) (also assuming the 8080 port has been exposed by the container).
 
-As you can tell, there quite a few requirements. So, the `wa_cli` provides an entrypoint to do this for you. The documentation command can be found [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-novnc). To spin up the `novnc` container, please run the following command:
+As you can tell, there quite a few requirements. So, the `wa_cli` provides an entrypoint to do this for you. The documentation command can be found [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-vnc). To spin up the `vnc` container, please run the following command:
 
 ```bash
-wa docker novnc
+wa docker vnc
 ```
 
-{% include note.html content="By default, most other `wa_cli` commands will run `wa docker novnc` implicitly. You may not need to run this yourself." %}
+{% include note.html content="By default, most other `wa_cli` commands will run `wa docker vnc` implicitly. You may not need to run this yourself." %}
 
 ## Using Simulations
 
