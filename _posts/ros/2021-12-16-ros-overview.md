@@ -101,7 +101,7 @@ Navigate to [https://localhost:8080/](https://localhost:8080/).
 
 ## ROS
 
-The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/galactic/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, plesae refer to the [ROS tutorials](https://docs.ros.org/en/galactic/Tutorials.html).
+The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/galactic/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, please refer to the [ROS tutorials](https://docs.ros.org/en/galactic/Tutorials.html).
 
 We have also created an easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
 
@@ -111,7 +111,7 @@ Additionally, [Docker](https://www.docker.com/) is used to mitigate setup headac
 
 ## Repository Structure
 
-Each control stack used by Wisocnsin Autonomous should be structured as follows.
+Each control stack used by Wisconsin Autonomous should be structured as follows.
 
 ```
 REPO
@@ -119,8 +119,7 @@ REPO
 ├── docker/             # Dockerfiles
 ├── docs/               # Documentation/tutorials specific to this repo
 ├── misc/               # Miscellaneous scripts and resources
-		└── _templates/			# Templates for generating ROS nodes
-├── wasim/          		# wa_simulator scenarios that can be used to test the control stack
+├── wasim/              # wa_simulator scenarios that can be used to test the control stack
 ├── workspace/          # ROS 2 workspace
 └── README.md
 ```
@@ -129,11 +128,9 @@ A template has been made with the aforementioned structure to streamline the cre
 
 ### `docker-compose.yml`
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker-compose` that simplifies building/running/executing on containers that is cross platform.
+[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker-compose` that simplifies building/running/executing on containers that is cross platform (i.e. replaces bash scripts with intricate command line arguments).
 
-The `docker-compose.yml` file defines configuration variables for the `docker` containers within it. 
-
-All `docker-compose.yml` files will have one `service`: `REPO-dev`. `REPO-dev` is meant for specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker.
+The `docker-compose.yml` file defines configuration variables for the `docker` containers within it. All `docker-compose.yml` files will have one `service`: `REPO-dev`. `REPO-dev` is meant specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker entirely.
 
 ### `docker/`
 
@@ -157,11 +154,11 @@ This is where we put the ROS 2 workspace. This is what is specific to each repos
 
 ## Setup and Installation
 
-**DISCLAIMER**: For developing the ROS 2 workspace, you _must_ use the created docker images. This is a requirement because we don't want to have to support multiple operating systems and have to deal with individual people's systems. The only place docker will not be used with this repository is on the actual vehicle (and with our own hardware).
+**DISCLAIMER**: For developing the ROS 2 workspace, you _must_ use the created docker images. This is a requirement because we don't want to have to support multiple operating systems and have to deal with individual people's systems. The only place docker may not be used with this repository is on the actual vehicle (and with our own hardware).
 
-Docker is a powerful application that is out of the scope of this README. Beyond Wisconsin Autonomous, knowing what and how to use Docker is a very valuable skill. To learn more, visit [their website](https://www.docker.com/). You can also find a huge amount of tutorials and resources just through Google. Please spend some time understanding Docker before continuing. For the remainder of this tutorial, it is assumed you understand `docker` and `docker-compose`.
+Docker is a powerful application that is out of the scope of this README. Beyond Wisconsin Autonomous, knowing what and how to use Docker is a very valuable skill. To learn more, visit [their website](https://www.docker.com/). You can also find a huge amount of tutorials and resources just through Google. Please spend some time understanding Docker before continuing. For the remainder of this tutorial, it is assumed you understand `docker` and `docker-compose` at least on the surface.
 
-For all of the commands we'll mention, they must be run from within the target repository. 
+For all of the commands we'll mention, they must be run from within the target repository (i.e. `cd` into the `REPO` folder). 
 
 ### Clone the Repository
 
@@ -172,7 +169,6 @@ git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO
 ```
 
 {% include note.html content="`--recursive` is recommended so that all [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are automatically pulled along with the main repository. If this isn't done during this step, you may do this after the fact with `git submodule update --init`." %}
-
 
 ### Installing Required Packages
 
