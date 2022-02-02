@@ -49,8 +49,6 @@ pip install -r requirements.txt
 
 ### 3. Use the Docker Development Environment
 
-#### 3.1 Using `wa docker stack`
-
 **Building, Starting, and Entering:**
 
 ```bash
@@ -61,32 +59,6 @@ wa docker stack
 
 ```bash
 wa docker stack --down
-```
-
-#### 3.2 Using `docker-compose`
-
-**Building:**
-
-```bash
-docker-compose build
-```
-
-**Starting:**
-
-```bash
-docker-compose up -d
-```
-
-**Entering:**
-
-```bash
-docker-compose exec REPO-dev bash
-```
-
-**Tearing Down:**
-
-```bash
-docker-compose down
 ```
 
 ### 4. Test the Stack with wa_simulator
@@ -115,7 +87,7 @@ Each control stack used by Wisconsin Autonomous should be structured as follows.
 
 ```
 REPO
-├── docker-compose.yml
+├── .avtoolbox.yml 
 ├── docker/             # Dockerfiles
 ├── docs/               # Documentation/tutorials specific to this repo
 ├── misc/               # Miscellaneous scripts and resources
@@ -126,11 +98,11 @@ REPO
 
 A template has been made with the aforementioned structure to streamline the creation process for this type of repo. The template can be found [here](https://github.com/WisconsinAutonomous/wa-control-stack).
 
-### `docker-compose.yml`
+### `.avtoolbox.yml`
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker-compose` that simplifies building/running/executing on containers that is cross platform (i.e. replaces bash scripts with intricate command line arguments).
+[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker compose` that simplifies building/running/executing on containers that is cross platform (i.e. replaces bash scripts with intricate command line arguments).
 
-The `docker-compose.yml` file defines configuration variables for the `docker` containers within it. All `docker-compose.yml` files will have one `service`: `REPO-dev`. `REPO-dev` is meant specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker entirely.
+The `.avtoolbox.yml` file defines custom configuration variables for the `docker` containers within it. All `docker-compose.yml` files, which the `.avtoolbox.yml` file provides custom edits for, will have one `service`: `REPO-dev`. `REPO-dev` is meant specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker entirely.
 
 ### `docker/`
 
@@ -221,18 +193,11 @@ It is _strongly_ recommended that you use the `wa_cli` to start, exec, build, an
 wa docker stack
 ```
 
-With `docker-compose`, this requires two steps:
-
-```shell
-docker-compose up -d REPO-dev
-docker-compose exec REPO-dev bash
-```
-
 Within the container, you should enter the shell in the `/root/` directory. Within `/root/`, the only folder you should see is `REPO` (reminder that `REPO` should be replaced with whatever repo you're actually using). This is a docker [volume](https://docs.docker.com/storage/volumes/), so any changes you make in this folder will be reflected on your system. I will say that again: the only file changes that will persist between your host system and the docker container are the files in `/root/REPO`. If you make any changes from within your docker container, ensure it is done in there. 
 
 For development purposes, you can use whatever tools you'd like for editing the code (`Atom`, `VSCode`, etc.). Because `/root/REPO` in the container is a volume (see previous paragraph), changes from your system will also be copied to your container.
 
-Various tools are installed to aid development, such as `tmux`. Feel free to leverage these. The `wa docker stack...` or `docker-compose exec ...` commands can also be run from any terminal window to attach to a new shell session (as long as it's run from within this repository); this is the advantage of running the container in the background (detached).
+Various tools are installed to aid development, such as `tmux`. Feel free to leverage these. The `wa docker stack...` command can also be run from any terminal window to attach to a new shell session (as long as it's run from within this repository); this is the advantage of running the container in the background (detached).
 
 For those interested, you may use other shells. `zsh` and `bash` should both already be installed, but you may need to install other shells, if desired.
 
@@ -242,12 +207,6 @@ When you are finished and would like to free up resources on your computer, you 
 
 ```shell
 wa docker stack --down
-```
-
-or
-
-```shell
-docker-compose down REPO-dev
 ```
 
 ### Building the ROS Workspace
