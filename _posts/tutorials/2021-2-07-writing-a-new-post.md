@@ -40,7 +40,7 @@ This will basically download the code to your system so you can edit it.
 
 ## Local Development Environment
 
-To simplify the development environment, we'll use [Docker](https://www.docker.com/). Please refer to the official documentation for an installation guide. Further, the [wa\_cli](https://wisconsinautonomous.github.io/wa_cli) has a command that will build the website using docker.
+To simplify the development environment, we'll use [Docker](https://www.docker.com/). Please refer to the official documentation for an installation guide. Further, the [`autonomy-toolkit`](https://projects.sbel.org/autonomy-toolkit) has a command that will build the website using docker.
 
 We'll be using docker to basically build the wiki in a linux server, and then we'll serve it to a local url at `https://localhost:4000`. To do this, run the following command at the root of the `WisconsinAutonomous.github.io` repo (assumes you have installed docker and `autonomy-toolkit`):
 
