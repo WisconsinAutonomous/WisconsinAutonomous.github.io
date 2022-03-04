@@ -42,16 +42,10 @@ This will basically download the code to your system so you can edit it.
 
 To simplify the development environment, we'll use [Docker](https://www.docker.com/). Please refer to the official documentation for an installation guide. Further, the [wa\_cli](https://wisconsinautonomous.github.io/wa_cli) has a command that will build the website using docker.
 
-We'll be using docker to basically build the wiki in a linux server, and then we'll serve it to a local url at `https://localhost:4000`. To do this, run the following command at the root of the `WisconsinAutonomous.github.io` repo (assumes you have installed docker and `wa_cli`):
+We'll be using docker to basically build the wiki in a linux server, and then we'll serve it to a local url at `https://localhost:4000`. To do this, run the following command at the root of the `WisconsinAutonomous.github.io` repo (assumes you have installed docker and `autonomy-toolkit`):
 
 ```bash
-wa wiki dev
-```
-
-If you would like to use docker explicitly, you may run the following command:
-
-```bash
-docker run -it --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 jekyll/jekyll jekyll serve
+atk run
 ```
 
 It will take a few minutes to build. Once it is built, you can navigate to `https://localhost:4000` to see the built changes. The docker container will continue to run until you stop the process. Any new changes you make to the repository will then cause a rebuild, which will can be seen at the url.

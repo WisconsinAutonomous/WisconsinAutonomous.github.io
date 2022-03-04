@@ -6,21 +6,23 @@ categories: [ROS]
 tags: [ros, technical]
 ---
 
-This guide outlines how Wisconsin Autonomous structures their ROS respositories. 
+This guide outlines how Wisconsin Autonomous structures their ROS respositories and how ROS development should take place
 
 ## Purpose
 
-A major difference between Wisconsin Autonomous and industry is that in WA, we have much higher turnover. This is because students graduate or move on. In addition, industry has employees working 40hrs a week and WA has students working 5-10hrs a week. As a result, planning is very important to ensure the time we do spend working on WA is not wasted.
+A major difference between Wisconsin Autonomous and industry is that in WA we have much higher turnover. This is because students graduate or move on. In addition, industry has employees working 40hrs a week and WA has students working 5-10hrs a week. As a result, planning is very important to ensure the time we do spend working on WA is not wasted.
 
 This guide goes into detail about how Wisconsin Autonomous structures their control stacks. We may have multiple control stacks for different applications; for example, one for the evGrand Prix, one for AutoDrive, and one for the rc car.
 
-It is very important the ideas presented on this page are followed. 
+It is very important the ideas presented on this page are followed _to a T_. 
 
 ## Prerequisites
 
-We'll refer to the control stack repository as `REPO` from now on.
+We'll refer to the control stack repository as `REPO` from now on. This simply helps for describing what's going on, replace `REPO` with the repository you're using, i.e. `waGrandPrix`.
 
 ## TL;DR
+
+**This section is for quick reference!! If you have not read this document in-full yet, you _must_ do that first.**
 
 ### Required Packages
 
@@ -52,20 +54,22 @@ pip install -r requirements.txt
 **Building, Starting, and Entering:**
 
 ```bash
-wa docker stack
+atk dev
 ```
 
 **Tearing Down:**
 
 ```bash
-wa docker stack --down
+atk dev --down
 ```
 
 ### 4. Test the Stack with wa_simulator
 
 ```bash
-wa docker run --wasim --data wasim/data wasim/baseline_track.py
+atk dev -r -s wasim baseline_track.py -mv
 ```
+
+{% include note.html content="This is an example, `baseline_track.py` may not exist in `REPO`." %}
 
 ### 5. Visualize GUI Applications
 
@@ -75,19 +79,19 @@ Navigate to [https://localhost:8080/](https://localhost:8080/).
 
 The [Robot Operating System (ROS)](https://www.ros.org/) is a major tool in the area of robotics. We use [ROS 2](https://docs.ros.org/en/galactic/) and for the remainder of this document, it is assumed you have a solid background with ROS related topics. This includes, but is not limited to, topics, nodes, messages, publishers, and subscribers. If any of this doesn't make sense, please refer to the [ROS tutorials](https://docs.ros.org/en/galactic/Tutorials.html).
 
-We have also created an easy to setup ROS environment using [Docker](#docker) called [wa_ros_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
+We have also created an easy to setup ROS environment for learning ROS using [Docker](#docker) called [wa\_ros\_tutorial](https://github.com/WisconsinAutonomous/wa_ros_tutorial). There are instructions there on how to set it up.
 
 ## Docker
 
-Additionally, [Docker](https://www.docker.com/) is used to mitigate setup headaches. Please research Docker to understand what it is exactly. Detailed instructions will be provided on how to use it.
+Additionally, [Docker](https://www.docker.com/) is used to mitigate setup headaches. Docker related background is out of the scope of this article, so please research it yourself to get a better understanding of what Docker really is. You _can_, in theory, get through this entire tutorial without understanding what Docker is, but that doesn't help you learn things, right?
 
 ## Repository Structure
 
-Each control stack used by Wisconsin Autonomous should be structured as follows.
+Each control stack used by Wisconsin Autonomous should be structured as follows:
 
 ```
 REPO
-├── .avtoolbox.yml 
+├── .atk.yml 
 ├── docker/             # Dockerfiles
 ├── docs/               # Documentation/tutorials specific to this repo
 ├── misc/               # Miscellaneous scripts and resources
@@ -98,11 +102,11 @@ REPO
 
 A template has been made with the aforementioned structure to streamline the creation process for this type of repo. The template can be found [here](https://github.com/WisconsinAutonomous/wa-control-stack).
 
-### `.avtoolbox.yml`
+### `.atk.yml`
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker compose` that simplifies building/running/executing on containers that is cross platform (i.e. replaces bash scripts with intricate command line arguments).
+[Docker Compose](https://docs.docker.com/compose/) is a tool for running multi-container Docker applications. For the most part, it is used in this way; however, it comes with an entrypoint called `docker compose` that simplifies building/running/executing on containers and it is cross platform (i.e. it replaces bash scripts with intricate command line arguments).
 
-The `.avtoolbox.yml` file defines custom configuration variables for the `docker` containers within it. All `docker-compose.yml` files, which the `.avtoolbox.yml` file provides custom edits for, will have one `service`: `REPO-dev`. `REPO-dev` is meant specifically for local development. On the actual vehicle, we'll use a more refined docker container or run it outside of docker entirely.
+The `.atk.yml` file defines custom configuration variables for the `docker` containers within it. All `docker-compose.yml` files, which the `.atk.yml` file provides custom edits for, will have atleast two `services`: `dev` and `vnc`. `dev` is meant specifically for local development of the ROS stack. `vnc` is used for visualization purposes. On the actual vehicle, we'll use a more refined docker container or run it outside of docker entirely.
 
 ### `docker/`
 
@@ -116,9 +120,9 @@ This folder holds general documentation or tutorials specific to this repository
 
 This should house miscellaneous resources and/or scripts. This should again be specific to the repository. Anything common across repos should go in a shared repository.
 
-### `wasim/`
+### `sim/`
 
-This folder contains `wa_simulator` scripts that implement various simulation scenarios. This folder, in conjunction with the `wa_cli`, is simply a way of providing simulation files without the need to create them each time or clone `wa_simulator` locally.
+This folder contains scripts for interacting with simulators. For example, `wa_simulator` scripts should be placed here. This folder, in conjunction with the `atk`, is simply a way of providing simulation files without the need to create them each time or build the simulators locally.
 
 ### `workspace/`
 
@@ -128,13 +132,13 @@ This is where we put the ROS 2 workspace. This is what is specific to each repos
 
 **DISCLAIMER**: For developing the ROS 2 workspace, you _must_ use the created docker images. This is a requirement because we don't want to have to support multiple operating systems and have to deal with individual people's systems. The only place docker may not be used with this repository is on the actual vehicle (and with our own hardware).
 
-Docker is a powerful application that is out of the scope of this README. Beyond Wisconsin Autonomous, knowing what and how to use Docker is a very valuable skill. To learn more, visit [their website](https://www.docker.com/). You can also find a huge amount of tutorials and resources just through Google. Please spend some time understanding Docker before continuing. For the remainder of this tutorial, it is assumed you understand `docker` and `docker-compose` at least on the surface.
+Docker is a powerful application that is out of the scope of this guide. Beyond Wisconsin Autonomous, knowing what and how to use Docker is a very valuable skill. To learn more, visit [their website](https://www.docker.com/). You can also find a huge amount of tutorials and resources just through Google. Please spend some time understanding Docker before continuing. For the remainder of this tutorial, it is assumed you understand `docker` and `docker compose` at least on the surface.
 
 For all of the commands we'll mention, they must be run from within the target repository (i.e. `cd` into the `REPO` folder). 
 
 ### Clone the Repository
 
-You should really already know how to do this. An example command to clone the `REPO` repository locally is provided below:
+An example command to clone the `REPO` repository locally is provided below:
 
 ```bash
 git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO 
@@ -144,7 +148,7 @@ git clone --recursive https://github.com/WisconsinAutonomous/REPO.git && cd REPO
 
 ### Installing Required Packages
 
-First, you need to install any necessary python packages for `REPO`. There should be a file called `requirements.txt`, which contains any python packages needed to run the control stack. At the very least, this file will contain `wa_cli`, which is the command line interface tool created for the Wisconsin Autonomous team.
+First, you need to install any necessary python packages for `REPO`. There should be a file called `requirements.txt` at the root of `REPO`, which contains any python packages needed to run the control stack. At the very least, this file will contain `autonomy-toolkit`, which is the command line interface tool created for the Wisconsin Autonomous team.
 
 To install these packages, run the following command:
 
@@ -158,46 +162,23 @@ pip install -r requirements.txt
 
 To get started, you will need to install [Docker](https://docs.docker.com/desktop/) and [Docker Compose](https://docs.docker.com/compose/install/). Please refer to the previous links for instructions on how to install.
 
-### Docker Setup
-
-In order to support multiple containers, we'll use a [Docker network](https://docs.docker.com/network/). This will allow us to have a container for simulations and then a separate container running our control stack. The scalability of this structure is very important for long term development across multiple platforms.
-
-By default, most other commands in the `wa_cli` package will automatically spin up a network. For the most part, you may safely ignore this section. If you run into any errors related to networks, you may want to return to this section.
-
-The `wa_cli` package has a command that will create the network for you. Make sure you have installed `wa_cli` and you may run the following command:
-
-```bash
-wa docker network
-```
-
-If you'd rather use the docker api, to create the network, you can run the following command:
-
-```shell
-docker network create \
-	--driver=bridge \
-	--subnet=172.20.0.0/25 \
-	wa
-```
-
-This command created a network titled `wa`.
-
 ### Developing in the Control Stack
 
-For development, we'll focus on the `REPO-dev` service.
+For development, we'll focus on the `dev` service.
 
 The very first time you start up the control stack, it will need to build the image that the container uses. This may take a while, but should only need to be done the first time around.
 
-It is _strongly_ recommended that you use the `wa_cli` to start, exec, build, and tear down the containers. Using the `wa_cli`, you can start, build, and attach to the container with on command.
+It is _required_ that you use the `autonomy-toolkit` to start, exec, build, and tear down the containers. Using the `autonomy-toolkit`, you can start, build, and attach to the container with on command.
 
 ```shell
-wa docker stack
+atk dev
 ```
 
-Within the container, you should enter the shell in the `/root/` directory. Within `/root/`, the only folder you should see is `REPO` (reminder that `REPO` should be replaced with whatever repo you're actually using). This is a docker [volume](https://docs.docker.com/storage/volumes/), so any changes you make in this folder will be reflected on your system. I will say that again: the only file changes that will persist between your host system and the docker container are the files in `/root/REPO`. If you make any changes from within your docker container, ensure it is done in there. 
+Within the container, you should enter the shell in the `~/{project}/workspace` directory, where `{project}` is custom to `REPO` and is probably just a lowercase version of the stacks name. `~/{project}/` is a docker [volume](https://docs.docker.com/storage/volumes/), so any changes you make in this folder will be reflected on your system. I will say that again: the only file changes that will persist between your host system and the docker container are the files in `/{project}`. If you make any changes from within your docker container, ensure it is done in there. 
 
-For development purposes, you can use whatever tools you'd like for editing the code (`Atom`, `VSCode`, etc.). Because `/root/REPO` in the container is a volume (see previous paragraph), changes from your system will also be copied to your container.
+For development purposes, you can use whatever tools you'd like for editing the code (`Atom`, `VSCode`, etc.). Because `~/{project}` in the container is a volume (see previous paragraph), changes from your system will also be copied to your container.
 
-Various tools are installed to aid development, such as `tmux`. Feel free to leverage these. The `wa docker stack...` command can also be run from any terminal window to attach to a new shell session (as long as it's run from within this repository); this is the advantage of running the container in the background (detached).
+Various tools are or can be installed to aid development, such as `tmux`. Feel free to leverage these. The `atk dev...` command can also be run from any terminal window to attach to a new shell session (as long as it's run from within this repository); this is the advantage of running the container in the background (detached).
 
 For those interested, you may use other shells. `zsh` and `bash` should both already be installed, but you may need to install other shells, if desired.
 
@@ -206,17 +187,17 @@ For those interested, you may use other shells. `zsh` and `bash` should both alr
 When you are finished and would like to free up resources on your computer, you may shutdown the container with either of the following commands.
 
 ```shell
-wa docker stack --down
+atk dev --down
 ```
 
 ### Building the ROS Workspace
 
-By default, the ROS distribution should be sourced automatically thanks to the shell configuration file. Further, the workspace setup overlay should also be sourced.
+By default, the ROS distribution should be sourced automatically thanks to the shell configuration file. This will only be the case if you have built the workspace with `colcon` and there is an `setup.<shell>` file present at `~/{project}/workspace/install/`.
 
-As a reminder, the ROS workspace is located in `/root/REPO/workspace/`. To get started with ROS in the container, you will need to build the workspace. An example of how to do this is provided below, but how to use ROS beyond this example is outside the scope of this guide.
+As a reminder, the ROS workspace is located in `~/{project}/workspace/`. To get started with ROS in the container, you will need to build the workspace. An example of how to do this is provided below, but how to use ROS beyond this example is outside the scope of this guide. NOTE: `colcon build` should only ever be run at `~/{project}/workspace/`.
 
 ```bash
-cd /root/REPO/workspace/ && colcon build
+colcon build
 ```
 
 ## ROS Workspace
@@ -240,7 +221,7 @@ The structure of the ROS workspace within `REPO` may be slightly different given
 
 Packages can be created using the `ros2 pkg create` command. Use `ros2 pkg create --help` to get more information.
 
-For example, to create a new python package, run the following: `ros2 pkg create --built-type ament_python new_package` from the `/root/REPO/workspace/src` directory. This will create a new package at the directory level.
+For example, to create a new python package, run the following: `ros2 pkg create --build-type ament_python new_package` from the `~/{project}/workspace/src` directory. This will create a new package at the directory level.
 
 ### Visualizing ROS Topics
 
@@ -260,15 +241,9 @@ To visualize messages, click the hamburger menu at the top left. There, you can 
 
 In addition to `rosboard`, you may also want to use `vnc` as a tool for visualizing gui apps. [novnc](https://novnc.com/info.html) is a tool for running [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) in a browser. With the correct setup, this allows you to run gui tools in a docker container and visualize them in your browser. Typically, running gui apps is very difficult in docker containers, but it is made simple with `novnc`. Furthermore, `vnc` can also be used using vnc viewers.
 
-The [wa\_cli](https://WisconsinAutonomous.github.io/wa_cli) provides a very convenient entrypoint at `wa docker vnc` to spin up a `vnc` container that can run on the same Docker `network` as the ros stack. Then, if the container has set it's `DISPLAY` environment variable to `vnc:0.0` (provided the `vnc` docker container has been named 'vnc'), any gui apps that are displayed can be seen in the browser at [http://localhost:8080/](http://localhost:8080/) (also assuming the 8080 port has been exposed by the container).
+The [`autonomy-toolkit`](http://projects.sbel.org/autonomy-toolkit) provides a very convenient `vnc` container that can be explicitly invoked with `atk dev -s vnc -u` to spin up a `vnc` container that can run on the same Docker `network` as the ros stack. Then, if the container has set it's `DISPLAY` environment variable to `vnc:0.0` (provided the `vnc` docker container has been named 'vnc'), any gui apps that are displayed can be seen in the browser at [http://localhost:8080/](http://localhost:8080/) (also assuming the 8080 port has been exposed by the container).
 
-As you can tell, there quite a few requirements. So, the `wa_cli` provides an entrypoint to do this for you. The documentation command can be found [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-vnc). To spin up the `vnc` container, please run the following command:
-
-```bash
-wa docker vnc
-```
-
-{% include note.html content="By default, most other `wa_cli` commands will run `wa docker vnc` implicitly. You may not need to run this yourself." %}
+{% include note.html content="By default, the `atk dev` command will run spin up the `vnc` container implicitly. You probably don't need to explicitly start up the `vnc` container yourself." %}
 
 ## Using Simulations
 
@@ -280,34 +255,17 @@ A more in-depth tutorial was created in the `wa_simulator` docs and that can be 
 
 ### Running `wa_simulator` Scripts
 
-To run `wa_simulator` scripts with your ROS software stack in docker, the `wa_cli` provides an entrypoint at `wa docker run` to do this. Please see the usage guide at [here](https://wisconsinautonomous.github.io/wa_cli/usage.html#docker-run).
+To run `wa_simulator` scripts with your ROS software stack in docker, the `REPO` should provide a `wasim` service that can be invoked with `atk`. 
 
-As the documentation describes, to run a basic simulation script in the `wasim/` subfolder, you can run something similar to the following command:
+As the documentation describes, to run a basic simulation script in the `sim/wasim` subfolder, you can run something similar to the following command:
 
 ```bash
-wa docker run \
-        --wasim \
-        --data "wasim/data/" \
-        wasim/script.py 
+atk dev -r -s wasim wa_simulator_script.py -mv
 ```
-
-Where `script.py` is a `wa_simulator` script and `data/` holds the data files needed for the `wa_simulator` script, where both are inside the `wasim/` folder. 
 
 ## Other Tools
 
-### License Script
-
-It is important that files have a license header. Licenses aren't necessarily used to disallow people from stealing your code, but it actually allows them to use it.
-
-The [wa\_cli](https://github.com/WisconsinAutonomous/wa_cli) has an entrypoint at `wa script license` that updates these headers automatically for you.
-
-To do this, run the following command inside the root directory of `REPO`:
-
-```
-wa script license .
-```
-
-For more information on the `license` command, run the previous command with a `--help` flag.
+{% include note.html content="To update..." %}
 
 ## Support
 
