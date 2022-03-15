@@ -66,7 +66,7 @@ atk dev --down
 ### 4. Test the Stack with wa_simulator
 
 ```bash
-atk dev -r -s wasim --args baseline_track.py -mv
+atk dev -r -s wasim --args python baseline_track.py -mv
 ```
 
 {% include note.html content="This is an example, `baseline_track.py` may not exist in `REPO`." %}
