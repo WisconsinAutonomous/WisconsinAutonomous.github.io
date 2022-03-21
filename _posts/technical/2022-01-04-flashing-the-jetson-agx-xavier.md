@@ -18,6 +18,10 @@ To begin, you must install [Docker](https://docker.com). Docker is a powerful to
 
 In summary, install Docker through their [official documentation](https://docs.docker.com/get-docker/).
 
+### Download the `tar`
+
+This guide essentially follows [this guide](https://docs.nvidia.com/sdk-manager/docker-containers/index.html). Download the docker `tar`.
+
 ### Flashing
 
 Ensure the jetson is connected to your computer via USB. Then, run the following command:
@@ -29,6 +33,10 @@ sudo docker run -it --rm --privileged --network host -v /dev/bus/usb:/dev/bus/us
 Apologies for the small amount of documentation in this guide. If this is done again, this guide will be updated with more information.
 
 {% include note.html content="This command was only tested on Ubuntu 20.04, but the sdkmanager should theoretically work on other operating systems with some minor changes to the command; for instance, the `-v /dev/bus/usb:/dev/bus/usb` shares the usb drivers between the base operating system to the container and this may be different for another OS." %}
+
+### Connect the Jetson
+
+You should then connect the jetson to the workstation (or your computer) with a usb-c cable. The usb-c cable should be connected to the front port on the jetson or the side of the jetson with the GPIO pins. Then in the docker container input, you should select 'Manual Setup' after logging in and accepting the privacy policy. 
 
 ## Support
 
