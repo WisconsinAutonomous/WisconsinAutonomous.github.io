@@ -5,6 +5,6 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - "{project_root}:/srv/jekyll"
+      - "@{project_root}:/srv/jekyll"
     command: jekyll serve
     tty: true

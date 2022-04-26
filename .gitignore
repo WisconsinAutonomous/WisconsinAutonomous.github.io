@@ -2,6 +2,5 @@
 _site
 .jekyll-cache
 Gemfile.lock
-.docker-compose.yml
-.atk.user_count
+.atk-compose.yml
 .dockerignore
